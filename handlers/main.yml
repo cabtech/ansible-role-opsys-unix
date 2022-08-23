@@ -1,6 +1,6 @@
 ---
-- name: 'handler_update_timezone'
-  shell: 'timedatectl set-timezone $(cat /etc/timezone)'
+- name: 'Handler_Update_Timezone'
+  ansible.builtin.shell: 'timedatectl set-timezone $(cat /etc/timezone)'
   become: true
   when:
   - ct_family == 'debian'
