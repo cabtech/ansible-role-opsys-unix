@@ -1,4 +1,6 @@
 ---
+# --------------------------------
+
 - name: 'Create /usr/local structure'
   ansible.builtin.file:
     path: /usr/local/{{ item }}
@@ -28,6 +30,15 @@
   become: true
   tags: [ct-unix]
 
+- name: 'Update /etc/hosts'
+  ansible.builtin.lineinfile:
+    line: '{{local_ipv4}} {{inventory_hostname}}'
+    path: /etc/hosts
+    regexp: '\d+\.\d+\.\d+\.\d+ {{inventory_hostname}}'
+    state: present
+  become: true
+  tags: [ct-unix]
+
 - name: 'Set timezone'
   ansible.builtin.template:
     src: timezone.j2
@@ -50,4 +61,6 @@
     mode: '0644'
   become: true
   tags: [ct-unix]
+
+# --------------------------------
 ...
