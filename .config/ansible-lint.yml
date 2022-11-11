@@ -2,4 +2,5 @@
 skip_list:
 - jinja[spacing]
 - role-name
+- yaml[indentation]
 ...
