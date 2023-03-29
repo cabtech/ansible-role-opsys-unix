@@ -1,64 +1,65 @@
 ---
 # --------------------------------
 
-- name: 'Create /usr/local structure'
+- name: "Create /usr/local structure"
   ansible.builtin.file:
     path: /usr/local/{{ item }}
     state: directory
     mode: "0755"
     owner: root
     group: root
-  loop: ['', 'bin', 'etc', 'etc/bash.d', 'lib']
+  loop: ["", "bin", "etc", "etc/bash.d", "lib"]
   become: true
   tags: [ct-unix]
 
-- name: 'Update /etc/hostname'
+- name: "Update /etc/hostname"
   ansible.builtin.template:
     src: etc-hostname.j2
     dest: /etc/hostname
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   when: ct_container is not defined
   become: true
   tags: [ct-unix]
 
-- name: 'Set hostname'
+- name: "Set hostname"
   ansible.builtin.hostname:
-    name: '{{ inventory_hostname }}'
+    name: "{{ inventory_hostname }}"
   when: ct_container is not defined
   become: true
   tags: [ct-unix]
 
-- name: 'Update /etc/hosts'
+- name: "Update /etc/hosts"
   ansible.builtin.lineinfile:
-    line: '{{local_ipv4}} {{inventory_hostname}}'
+    line: "{{ local_ipv4 }} {{ inventory_hostname }}"
     path: /etc/hosts
-    regexp: '\d+\.\d+\.\d+\.\d+ {{inventory_hostname}}'
+    regexp: '\d+\.\d+\.\d+\.\d+ {{ inventory_hostname }}'
     state: present
+  when: local_ipv4 is defined
   become: true
   tags: [ct-unix]
 
-- name: 'Set timezone'
+- name: "Set timezone"
   ansible.builtin.template:
     src: timezone.j2
     dest: /etc/timezone
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
     backup: true
   when: ct_timezone is defined
   notify: Handler_Update_Timezone
   become: true
   tags: [ct-unix]
 
-- name: 'Copy over core bash include file'
+- name: "Copy over core bash include file"
   ansible.builtin.copy:
     src: core.sh
     dest: /usr/local/etc/bash.d/core.sh
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
   tags: [ct-unix]
 
