@@ -5,7 +5,7 @@
   ansible.builtin.file:
     path: /usr/local/{{ item }}
     state: directory
-    mode: 0755
+    mode: "0755"
     owner: root
     group: root
   loop: ['', 'bin', 'etc', 'etc/bash.d', 'lib']
