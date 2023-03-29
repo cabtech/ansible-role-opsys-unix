@@ -1,5 +1,4 @@
-# --------------------------------
-# ansible managed bash include file
+# MANAGED_BY_ANSIBLE
 # --------------------------------
 
 set -o vi
@@ -13,12 +12,6 @@ for dir in $dirs; do
 done
 
 # --------------------------------
-
-fname=~/.Xmodmap
-if [[ -r "$fname" ]]; then
-	xmodmap $fname 2> /dev/null
-	alias keys="xmodmap $fname"
-fi
 
 alias  _ls='/bin/ls -C --color'
 alias   ls='_ls'
@@ -42,7 +35,6 @@ alias    rm='/bin/rm'
 alias     v='vim'
 alias    vh='vim handy'
 alias    ro='vim -R'
-alias    xt='xterm > /dev/null 2>&1 &'
  
 alias up1='cd ..'
 alias up2='cd ../..'
@@ -91,7 +83,6 @@ function sshgrep {
 alias  qbin='cd ~/bin'
 alias  qetc='cd ~/etc'
 alias  qsrc='cd ~/src'
-alias   qcc='cd ~/src/codecommit'
 alias qwork='cd ~/work'
 alias  qvar='cd ~/var'
 
@@ -110,15 +101,6 @@ function xpand {
 	echo $1 | tr ':' '\n'
 }
 
-function mighandy {
-    mkdir -p ~/etc/handy.d/
-	if [[ -r ~/etc/misc/handy ]]; then
-		mv ~/etc/misc/handy ~/etc/handy.d/default.txt
-	else
-    	touch ~/etc/handy.d/default.txt
-	fi
-}
-
 function handy {
     seek=${1:-'.*'}
     grep -i "$seek" ~/etc/handy.d/*.txt
@@ -128,10 +110,5 @@ function vhandy {
 	fname=~/etc/handy.d/${1:-'default'}.txt
 	vi $fname
 }
-
-
-# --------------------------------
-
-alias genpass='makepasswd --chars=16 --crypt'
 
 # --------------------------------
