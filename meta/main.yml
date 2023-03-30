@@ -1,15 +1,23 @@
 ---
+# --------------------------------
+
 dependencies:
 - src: git+https://github.com/cabtech/ansible-role-util-facts.git
-  tags: always
+  tags: ["ct-unix"]
   version: "1.1.0"
 
 galaxy_info:
-  author: 'Wibble'
-  company: 'Wibble'
-  description: 'Wibble'
-  galaxy_tags: []
-  license: 'Wibble'
-  min_ansible_version: '2.0'
-  platforms: [{name: 'Ubuntu', versions: ['all']}]
+  author: "Tim Short"
+  company: "Cabernet Technology"
+  description: "Installs bootstrap stuff for Unix OS"
+  galaxy_tags: [unix, linux]
+  license: GPL v3
+  role_name: ansible_role_opsys_unix
+  min_ansible_version: "2"
+  namespace: cabtech
+  platforms:
+  - name: Ubuntu
+    versions: [bionic, focal, jammy]
+
+# --------------------------------
 ...
