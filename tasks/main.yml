@@ -25,7 +25,7 @@
 
 - name: "Set hostname"
   ansible.builtin.hostname:
-    name: "{{ inventory_hostname }}"
+    name: "{{ ct_hostname | default(inventory_hostname) }}"
   when: ct_container is not defined
   become: true
   tags: [ct-unix]

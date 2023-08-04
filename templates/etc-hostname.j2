@@ -1,1 +1,1 @@
-{{ inventory_hostname }}
+{{ ct_hostname | default(inventory_hostname) }}
