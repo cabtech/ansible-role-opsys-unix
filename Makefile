@@ -8,9 +8,10 @@ lint: .ylint .alint
 	yamllint --config-file=.config/yamllint .
 	@touch $@
 
-push:
+push: lint
 	@mkdir -p /mnt/hgfs/shared/ansible-role-opsys-unix
-	rsync -a * /mnt/hgfs/shared/ansible-role-opsys-unix
+	rsync -a .config .gitignore [A-z]* /mnt/hgfs/shared/ansible-role-opsys-unix
 
+.PHONE: clean
 clean:
 	@/bin/rm -f .alint .ylint
