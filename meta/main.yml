@@ -3,10 +3,10 @@
 
 dependencies: []
 
-__dependencies:
-- src: git+https://github.com/cabtech/ansible-role-util-facts.git
-  tags: ["ct-unix"]
-  version: "1.2.0"
+#dependencies:
+#- src: git+https://github.com/cabtech/ansible-role-util-facts.git
+#  tags: ["ct-unix"]
+#  version: "1.2.0"
 
 galaxy_info:
   author: "Tim Short"
