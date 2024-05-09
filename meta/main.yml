@@ -10,7 +10,6 @@ dependencies: []
 
 galaxy_info:
   author: "Tim Short"
-  company: "Cabernet Technology"
   description: "Installs bootstrap stuff for Unix OS"
   galaxy_tags: [unix, linux]
   license: GPL v3
