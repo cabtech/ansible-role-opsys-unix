@@ -3,7 +3,7 @@
   ansible.builtin.shell: 'timedatectl set-timezone $(cat /etc/timezone)'
   become: true
   when:
-  - ct_family == 'debian'
+  - ansible_facts['os_family'] == 'Debian'
   tags:
   - ct-opsys-unix
   - skip_ansible_lint
