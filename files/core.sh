@@ -1,5 +1,6 @@
 # MANAGED_BY_ANSIBLE
 # --------------------------------
+# shellcheck shell=bash
 
 set -o vi
 export LC_COLLATE=C # treat A and a differently as only right and proper
@@ -50,19 +51,19 @@ alias vgrep='grep -v'
 alias     g='grep'
 
 function gralias {
-    alias | grep -i ${1:-"NotOnYourNelly"} | sort
+    alias | grep -i "${1:-'NotOnYourNelly'}" | sort
 }
 
 function gralias2 {
-    alias | sed 's/=/ /' | grep -i ${1:-'NotOnYourNelly'} | sort
+    alias | sed 's/=/ /' | grep -i "${1:-'NotOnYourNelly'}" | sort
 }
 
 function grenv {
-    env | grep -i ${1:-'NotOnYourNelly'} | sort
+    env | grep -i "${1:-'NotOnYourNelly'}" | sort
 }
 
 function grenv2 {
-    env | sed 's/=/ /' | grep -i ${1:-'NotOnYourNelly'} | sort
+    env | sed 's/=/ /' | grep -i "${1:-'NotOnYourNelly'}" | sort
 }
 
 function xgrep {
@@ -75,7 +76,7 @@ function xgrep {
 }
 
 function sshgrep {
-	grep -v '^#' ~/.ssh/config | grep -i -A4 $1
+	grep -v '^#' ~/.ssh/config | grep -i -A4 "$1"
 }
 
 # --------------------------------
@@ -91,24 +92,26 @@ alias  qvar='cd ~/var'
 alias m1='_m1=$(pwd)'
 alias m2='_m2=$(pwd)'
 alias m3='_m3=$(pwd)'
+# shellcheck disable=SC2154
 alias j1='cd ${_m1:-.}'
+# shellcheck disable=SC2154
 alias j2='cd ${_m2:-.}'
+# shellcheck disable=SC2154
 alias j3='cd ${_m3:-.}'
 
 # --------------------------------
 
 function xpand {
-	echo $1 | tr ':' '\n'
+	echo "$1" | tr ':' '\n'
 }
 
 function handy {
     seek=${1:-'.*'}
-    grep -i "$seek" ~/etc/handy.d/*.txt
+    grep -i "$seek" ~/etc/handy
 }
 
 function vhandy {
-	fname=~/etc/handy.d/${1:-'default'}.txt
-	vi $fname
+	vi ~/etc/handy
 }
 
 # --------------------------------
