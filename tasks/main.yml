@@ -1,6 +1,23 @@
 ---
 # --------------------------------
 
+- name: "Include variables wrapper"
+  ansible.builtin.include_tasks:
+    file: variables.yml
+  tags: ["ct-unix"]
+
+- name: "Disto/Family tasks (FF)"
+  ansible.builtin.include_tasks:
+    file: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+      - "{{ ansible_facts['distribution'] }}-{{ ansible_facts['distribution_major_version'].split('.')[0] }}.yml"
+      - "{{ ansible_facts['distribution'] }}.yml"
+      - "{{ ansible_facts['os_family'] }}.yml"
+      - "default.yml"
+  tags: ["ct-unix"]
+
 - name: "Create /usr/local structure"
   ansible.builtin.file:
     path: /usr/local/{{ item }}
@@ -10,7 +27,7 @@
     group: root
   loop: ["", "bin", "etc", "etc/bash.d", "lib"]
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 - name: "Update /etc/hostname"
   ansible.builtin.template:
@@ -21,14 +38,14 @@
     mode: "0644"
   when: ct_container is not defined
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 - name: "Set hostname"
   ansible.builtin.hostname:
     name: "{{ ct_hostname | default(inventory_hostname) }}"
   when: ct_container is not defined
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 - name: "Update /etc/hosts"
   ansible.builtin.lineinfile:
@@ -38,7 +55,7 @@
     state: present
   when: local_ipv4 is defined
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 - name: "Set timezone"
   ansible.builtin.template:
@@ -51,7 +68,7 @@
   when: ct_timezone is defined
   notify: Handler_Update_Timezone
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 - name: "Copy over core bash include file"
   ansible.builtin.copy:
@@ -61,7 +78,7 @@
     group: root
     mode: "0644"
   become: true
-  tags: [ct-unix]
+  tags: ["ct-unix"]
 
 # --------------------------------
 ...
